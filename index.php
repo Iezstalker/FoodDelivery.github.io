@@ -1,0 +1,168 @@
+<?php
+$insert = false;
+if (isset($_POST['name'])) {
+
+    // set connection variables
+    $server = "localhost";
+    $username = "root";
+    $password = "";
+
+    // Create a database connection
+    $con = mysqli_connect($server, $username, $password);
+
+    // Check for connection success
+    if (!$con) {
+        die("connection to this database faailed due to" .
+            mysqli_connect_error());
+    }
+    // echo "Success connecting to the php";   
+
+    // Collect post variables
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $message = $_POST['message'];
+    $sql = "INSERT INTO `food`.`food` (`name`, `email`, `phone`, `message`, `dt`) VALUES ('$name', '$email', '$phone', '$message', current_timestamp());";
+    // echo $sql;
+
+    // Execute the query
+    if ($con->query($sql) == true) {
+        // echo "successfully inserted";
+
+        // Flag forsuccessful insertion
+        $insert = true;
+    } else {
+        echo "ERROR: $sql <br> $con->error";
+    }
+    // Close the database connection
+    $con->close();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Food Delivery Service In India</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" media="screen and (max-width: 1285px)" href="css/phone.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Baloo+Bhaijaan+2&family=Baloo+Da+2&family=Balsamiq+Sans:ital@1&family=Oleo+Script+Swash+Caps&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div id="logo">
+            <img src="logo1.jpg" style="width:100%; height:auto; max-width:50px;" alt="MyOnlineMeal.com">
+        </div>
+        <ul>
+            <li class="item"><a href="#home">Home</a></li>
+            <li class="item"><a href="#services-container">Services</a></li>
+            <li class="item"><a href="#client-section">Our Clients</a></li>
+            <li class="item"><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+
+        <?php
+        if ($insert == true) {
+            echo "<h1 class='submitmsg'>!!!!Thanks for submitting your form!!!</h1>";
+        }
+        ?>
+
+        <h1 class="h-primary">Welcome To MyOnlineMeal</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea non quidem minus id nesciunt fugit .</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <button class="btn">Order Now</button>
+    </section>
+
+    <section id="services-container">
+        <h1 class="h-primary center">Our Services</h1>
+        <div id="services">
+            <div class="box">
+                <img src="img/2.jpg" alt="">
+                <h2 class="h-secondary center">Food Ordering</h2>
+                <p class="center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo aliquid fugiat
+                    repellendus! Quis,
+                    odit. Beatae dignissimos aliquid, optio corporis quam veniam repellat culpa temporibus officiis
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum vel enim dignissimos accusantium sit
+                    asperiores eos officia fugit dicta, explicabo, quam voluptates quod!
+                    possimus accusamus ratione sequi asperiores magnam, cumque necessitatibus amet.</p>
+            </div>
+            <div class="box">
+                <img src="img/1.jpg" alt="">
+                <h2 class="h-secondary center">Bulk Ordering</h2>
+                <p class="center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo aliquid fugiat
+                    repellendus! Quis,Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita veniam illum,
+                    fugiat consequatur corrupti illo, aperiam molestias consequuntur explicabo itaque deserunt tempore
+                    qui.
+                    odit. Beatae dignissimos aliquid, optio corporis quam veniam repellat culpa temporibus officiis
+                    possimus accusamus ratione sequi asperiores magnam, cumque necessitatibus amet.</p>
+            </div>
+            <div class="box">
+                <img src="delivery.jpg" alt="">
+                <h2 class="h-secondary center">Food Catering</h2>
+                <p class="center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo aliquid fugiat
+                    repellendus! Quis, Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore ea doloremque
+                    commodi nemo debitis nobis. Modi culpa dicta autem eius asperiores quos debitis.
+                    odit. Beatae dignissimos aliquid, optio corporis quam veniam repellat culpa temporibus officiis
+                    possimus accusamus ratione sequi asperiores magnam, cumque necessitatibus amet.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="client-section">
+        <h1 class="h-primarycenter">Our Clients</h1>
+        <div id="clients">
+            <div class="client-item">
+                <img src="img/3.png" alt="Our client">
+            </div>
+            <div class="client-item">
+                <img src="img/4.jpg" alt="Our client">
+            </div>
+            <div class="client-item">
+                <img src="img/5.jpeg" alt="Our client">
+            </div>
+            <div class="client-item">
+                <img src="img/6.jpeg" alt="Our client">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h1 class="h-primarycenter">Contact Us</h1>
+        <div id="contact-box">
+            <form action="index.php" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" placeholder="Enter Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Email:</label>
+                    <input type="text" name="email" id="email" placeholder="Enter Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Phone No.:</label>
+                    <input type="text" name="phone" id="phone" placeholder="Enter Your Phone No." required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Message:</label>
+                    <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+                    <a href="/index.html" id="anchor"><button id="btn-primary">Submit</button></a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="center">
+            Copyright &copy; www.myOnlineMeal.com
+        </div>
+    </footer>
+</body>
+
+</html>
